@@ -32,7 +32,6 @@ public class PhoneBookDirectory extends AppCompatActivity {
             ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_PRIMARY,
             ContactsContract.CommonDataKinds.Phone.NUMBER
     };
-//    CardView c; TextView number;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,14 +41,6 @@ public class PhoneBookDirectory extends AppCompatActivity {
         fab.setIcon(R.drawable.fab_bg_normal);
         adapter = new RvAdapter(this);
         recyclerView = findViewById(R.id.rv);
-//        number = findViewById(R.id.number);
-//        c = findViewById(R.id.cardView);
-//        c.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + number.getText().toString())));
-//            }
-//        });
         EnableRuntimePermission();
         getData(contactList);
         setUpRecyclerView();
@@ -93,15 +84,6 @@ public class PhoneBookDirectory extends AppCompatActivity {
         } else {
             ActivityCompat.requestPermissions(PhoneBookDirectory.this,new String[]{
                     Manifest.permission.READ_CONTACTS}, 1);
-        }
-
-        if (ActivityCompat.shouldShowRequestPermissionRationale(
-                PhoneBookDirectory.this,
-                Manifest.permission.WRITE_CONTACTS))
-        {
-        } else {
-            ActivityCompat.requestPermissions(PhoneBookDirectory.this,new String[]{
-                    Manifest.permission.WRITE_CONTACTS}, 1);
         }
     }
 

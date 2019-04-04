@@ -38,7 +38,6 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.MyViewHolder> {
     public void onBindViewHolder(@NonNull MyViewHolder holder , int i) {
         holder.name.setText(dataList.get(i).getName());
         holder.number.setText(dataList.get(i).getNumber());
-//        Glide.with(context).load(dataList.get(i).getImage()).apply(RequestOptions.circleCropTransform()).into(holder.img);
     }
 
     @Override
@@ -46,20 +45,13 @@ public class RvAdapter extends RecyclerView.Adapter<RvAdapter.MyViewHolder> {
         return dataList.size();
     }
 
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder{
         TextView name, number;
         ImageView img;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.name);
             number = itemView.findViewById(R.id.number);
-//            img = itemView.findViewById(R.id.img);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent i = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + number));
-                }
-            });
         }
     }
 

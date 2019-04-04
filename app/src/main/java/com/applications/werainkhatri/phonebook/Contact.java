@@ -6,9 +6,9 @@ import java.lang.annotation.Annotation;
 
 public class Contact {
     private String name;
-    private long number;
+    private String number;
 
-    public Contact(String name, long number) {
+    public Contact(String name, String number) {
         this.name = name;
         this.number = number;
     }
@@ -17,7 +17,7 @@ public class Contact {
         return name;
     }
 
-    public long getNumber() {
+    public String getNumber() {
         return number;
     }
 

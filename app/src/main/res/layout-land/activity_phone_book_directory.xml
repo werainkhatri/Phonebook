@@ -16,12 +16,6 @@
         tools:layout_editor_absoluteX="8dp"
         tools:layout_editor_absoluteY="0dp" />
 
-    <Button
-        android:id="@+id/ref"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="360dp" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv"
         android:layout_width="match_parent"

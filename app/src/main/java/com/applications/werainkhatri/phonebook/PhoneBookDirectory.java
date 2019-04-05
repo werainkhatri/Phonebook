@@ -3,10 +3,12 @@ package com.applications.werainkhatri.phonebook;
 import android.Manifest;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -27,7 +29,7 @@ public class PhoneBookDirectory extends AppCompatActivity {
 
     private RvAdapter adapter;
     private RecyclerView recyclerView;
-    private List<Contact> contactList = new ArrayList<>();
+    private List<Contact> contactList;
     String mProj[] = new String[]{
             ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME_PRIMARY,
             ContactsContract.CommonDataKinds.Phone.NUMBER
@@ -42,6 +44,7 @@ public class PhoneBookDirectory extends AppCompatActivity {
         adapter = new RvAdapter(this);
         recyclerView = findViewById(R.id.rv);
         EnableRuntimePermission();
+        contactList = new ArrayList<>();
         getData(contactList);
         setUpRecyclerView();
 
@@ -50,6 +53,7 @@ public class PhoneBookDirectory extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        contactList = new ArrayList<>();
         getData(contactList);
         setUpRecyclerView();
     }
@@ -76,16 +80,36 @@ public class PhoneBookDirectory extends AppCompatActivity {
 
     }
 
-    public void EnableRuntimePermission(){
-        if (ActivityCompat.shouldShowRequestPermissionRationale(
-                PhoneBookDirectory.this,
-                android.Manifest.permission.READ_CONTACTS))
-        {
-        } else {
-            ActivityCompat.requestPermissions(PhoneBookDirectory.this,new String[]{
-                    Manifest.permission.READ_CONTACTS}, 1);
+    public void EnableRuntimePermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    PhoneBookDirectory.this,
+                    android.Manifest.permission.WRITE_CONTACTS)) {
+            } else {
+                ActivityCompat.requestPermissions(PhoneBookDirectory.this, new String[]{
+                        Manifest.permission.WRITE_CONTACTS}, 1);
+            }
+        }
+
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(
+                    PhoneBookDirectory.this,
+                    Manifest.permission.READ_CONTACTS)) {
+            } else {
+                ActivityCompat.requestPermissions(PhoneBookDirectory.this, new String[]{
+                        Manifest.permission.READ_CONTACTS}, 1);
+            }
         }
     }
 
 
+    public void Refresh(View view) {
+        adapter = new RvAdapter(this);
+        recyclerView = findViewById(R.id.rv);
+        EnableRuntimePermission();
+        getData(contactList);
+        setUpRecyclerView();
+        onPause();
+        onResume();
+    }
 }

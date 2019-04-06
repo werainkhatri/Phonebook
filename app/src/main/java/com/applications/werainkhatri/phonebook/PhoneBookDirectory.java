@@ -109,7 +109,5 @@ public class PhoneBookDirectory extends AppCompatActivity {
         EnableRuntimePermission();
         getData(contactList);
         setUpRecyclerView();
-        onPause();
-        onResume();
     }
 }
